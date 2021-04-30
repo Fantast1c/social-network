@@ -1,20 +1,30 @@
 import React from "react";
 import s from './MyPosts.module.css'
-import Post from "./Post/Post";
+import Post, {PostPropsType} from "./Post/Post";
 
-const MyPosts = () => {
+export type MyPostsPropsType ={
+    posts: Array<PostPropsType>
+}
+
+const MyPosts = (props:MyPostsPropsType) => {
+
+    let postsElements = props.posts.map((p)=> <Post message={p.message} likeCounts={p.likeCounts}/>)
+
     return (
-        <div>
+        <div className={s.postsBlock}>
             <div>
-                myPosts
+                <h3>myPosts</h3>
                 <div>
-                    <textarea></textarea>
-                    <button>add post</button>
+                    <div><textarea></textarea></div>
+                    <div>
+                        <button className={s.button} onClick={()=>{alert("Пост не добавляется :(")}}>add post</button>
+                    </div>
                 </div>
             </div>
-            <Post message ="First Post" likeCounts = "3"/>
-            <Post message ="Second Post" likeCounts = "0"/>
-            <Post message ="Third Post" likeCounts = "5"/>
+            <div className={s.posts}>
+                {postsElements}
+            </div>
+
         </div>
 
     );

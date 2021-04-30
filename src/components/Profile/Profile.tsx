@@ -1,22 +1,18 @@
 import React from "react";
 import s from './Profile.module.css'
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import { ProfilePageType } from "../../redux/state";
 import MyPosts from "./MyPosts/MyPosts";
 
-export type PostPropsType = {
-    message: string;
-    likeCounts: string;
+export type ProfilePropsType ={
+    profilePage: ProfilePageType
 }
 
-const Profile = () => {
+const Profile = (props:ProfilePropsType) => {
     return (
         <div className={s.profile}>
-            <div>
-                <img src="https://bipbap.ru/wp-content/uploads/2017/08/2.jpg"/>
-            </div>
-            <div>
-                avatar_desc
-            </div>
-            <MyPosts/>
+            <ProfileInfo/>
+            <MyPosts posts={props.profilePage.posts} />
         </div>
 
     );

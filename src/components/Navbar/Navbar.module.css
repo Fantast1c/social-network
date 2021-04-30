@@ -1,5 +1,33 @@
 .nav {
     grid-area: n;
-    background-color: dimgrey;
-    color: white;
+    background-color: #2e2e2e;
+    line-height: 48px;
+    font-size: 1.15rem;
+
+
 }
+
+.item a {
+    color: #757575;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    padding-left: 20px;
+
+
+}
+
+.item a:hover {
+    display: block;
+    background: #141414;
+    box-sizing: border-box;
+    color: white;
+
+}
+
+.item a.activeLink {
+    color: white;
+    background-color: #141414;
+
+}
+
