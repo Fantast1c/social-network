@@ -1,10 +1,11 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
+import profilePhoto from '../../../assets/images/profile.jpg'
 
 const ProfileInfo = () => {
     return (<div className={s.profileInfo}>
             <div className={s.profileImg}>
-                <img src="https://pokerus.ru/_ph/13/181306511.png"/>
+                <img src={profilePhoto} alt='profilePhoto'/>
             </div>
             <div className={s.descriptionBlock}>
                 avatar+desc
