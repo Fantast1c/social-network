@@ -2,11 +2,10 @@ import s from './Users.module.css'
 import  axios from "axios";
 import userPhoto from '../../assets/images/user.jpg'
 import {useEffect} from "react";
+import {Spinner} from "../../assets/spinner/Spinner";
 
 export type UsersPropsType = {
    users: Array<UserPropsType>
-    //totalCount: 30,
-   // error: null
     follow:(userId: number) => void
     unFollow:(userId: number) => void
     setUsers: (response: any) =>void
@@ -15,6 +14,8 @@ export type UsersPropsType = {
     currentPage:number
     setCurrentPage: (p:any) => void
     setTotalUserCount:(response: any)=>void
+    isFetching: boolean
+    toggleIsFetching:(isFetching:boolean) => void
 }
 export type  UserPropsType = {
     name: string,
@@ -30,16 +31,21 @@ export type  UserPropsType = {
 }
 const Users = (props:UsersPropsType) => {
  useEffect(()=>{
+     props.toggleIsFetching(true)
      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
-     .then(response =>{
+     .then(response =>setTimeout(()=>{props.toggleIsFetching(false)
          props.setUsers(response.data.items)
-         props.setTotalUserCount(response.data.totalCount)});}, [])
+         props.setTotalUserCount(response.data.totalCount)},400)
+         );}, [])
 
 
-        const onPageChanged =(pageNumber: number) =>{
+         const  onPageChanged =(pageNumber: number) =>{
             props.setCurrentPage(pageNumber)
+            props.toggleIsFetching(true)
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`)
-                .then(response =>{ props.setUsers(response.data.items)});
+                .then(response =>setTimeout(()=>{
+                    props.toggleIsFetching(false)
+                    props.setUsers(response.data.items)},400));
         }
 
         let pagesCount = Math.ceil(props.totalUsersCount/props.pageSize)
@@ -52,6 +58,9 @@ const Users = (props:UsersPropsType) => {
 
     return (
         <div>
+            <div>
+                {props.isFetching? <Spinner/>: null}
+            </div>
             <div>
                 {pages.map((p) =>{
                     return <span className={props.currentPage=== p ? s.selectedPage: ""}
