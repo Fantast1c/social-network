@@ -1,8 +1,8 @@
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {MessagesPageType} from "../../redux/store-hand(legacy)";
 import React from "react";
+import {MessagesPageType} from "../../redux/store";
 
 export type DialogsPropsType={
     updateMessageBody:(body:string)=> void,

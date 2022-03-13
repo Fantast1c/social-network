@@ -1,6 +1,7 @@
-import {RootStateType} from "./store-hand(legacy)";
+import {AppStoreType} from "./store";
 
-const sidebarReducer = (state:RootStateType, action:any) =>{
+
+const sidebarReducer = (state:AppStoreType, action:any) =>{
     return state;
 }
 

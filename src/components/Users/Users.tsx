@@ -3,6 +3,7 @@ import  axios from "axios";
 import userPhoto from '../../assets/images/user.jpg'
 import {useEffect} from "react";
 import {Spinner} from "../../assets/spinner/Spinner";
+import {NavLink} from "react-router-dom";
 
 export type UsersPropsType = {
    users: Array<UserPropsType>
@@ -72,7 +73,7 @@ const Users = (props:UsersPropsType) => {
                 props.users.map((u) => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photos.small || userPhoto} alt="photo" className={s.photo}/>
+                            <NavLink to={'/profile/'+u.id}> <img src={u.photos.small || userPhoto} alt="photo" className={s.photo}/></NavLink>
                         </div>
                     </span>
                     <span>
