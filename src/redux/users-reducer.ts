@@ -15,7 +15,7 @@ let initialState:UsersPropsType = {
     isFetching: false
 }
 
-type InitStateType = typeof initialState
+ type InitStateType = typeof initialState
 
 const usersReducer = (state: UsersPropsType = initialState, action: any): UsersPropsType => {
     switch (action.type) {

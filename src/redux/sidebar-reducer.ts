@@ -1,4 +1,4 @@
-import {RootStateType} from "./store-hand(legacy)";
+import {RootStateType} from "./store";
 
 const sidebarReducer = (state:RootStateType, action:any) =>{
     return state;

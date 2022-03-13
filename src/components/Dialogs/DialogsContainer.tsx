@@ -2,7 +2,7 @@ import {sendMessageAC, updateMessageBodyAC} from "../../redux/messages-reducer";
 import React from "react";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/store-hand(legacy)";
+import {RootStateType} from "../../redux/store";
 
 let mapStateToProps = (state: RootStateType)=>{
     return {
