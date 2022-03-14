@@ -24,7 +24,7 @@ debugger
 
 
             <div>
-                {state.isAuth? state.login:<NavLink to={'/login'} className={s.loginBlock}>Login</NavLink>}
+                {state.isAuth? state.id:<NavLink to={'/login'} className={s.loginBlock}>Login</NavLink>}
                 </div>
         </header>
 

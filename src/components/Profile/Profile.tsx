@@ -16,7 +16,7 @@ const Profile = (props: any) => {
     useEffect(() => {
         let userId = props.match.params.userId
         if (!userId) {
-            userId = 2
+            userId = 18645
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response =>
