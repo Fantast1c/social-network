@@ -2,6 +2,7 @@ import {combineReducers, createStore, Store} from "redux";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
 import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 export type PostType = {
     message: string;
@@ -33,10 +34,12 @@ export type RootStateType = {
 let reducers = combineReducers({
     profilePage : profileReducer,
     messagesPage : messagesReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export type AppStoreType = ReturnType<typeof reducers>
 
 let store: Store = createStore(reducers);
+
 export default store;

@@ -4,7 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {useDispatch} from "react-redux";
 import axios from "axios";
-import {InitStateType, setUserProfileAC} from "../../redux/profile-reducer";
+import {setUserProfileAC} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 
 

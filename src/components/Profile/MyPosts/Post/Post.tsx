@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Post.module.css'
-import profilePhoto from '../../../../assets/images/profile.jpg'
+import profilePhoto from '../../../../assets/images/profile.png'
 
 export type PostPropsType = {
     message: string;
