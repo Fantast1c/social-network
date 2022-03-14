@@ -14,3 +14,7 @@ color: gold;
 .messages{
     padding: 10px;
 }
+
+.form_control{
+    resize: none
+}

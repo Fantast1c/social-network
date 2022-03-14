@@ -1,9 +1,19 @@
 .header {
-    grid-area: h;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
     background-color: #26a69a;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 
 }
 
 .header img {
-    width: 20px;
+    width: 250px;
+}
+
+.loginBlock{
+    text-decoration: none;
+    color: white;
 }

@@ -58,7 +58,7 @@ const Users = (props:UsersPropsType) => {
     }
 
     return (
-        <div>
+        <div className={s.users}>
             <div>
                 {props.isFetching? <Spinner/>: null}
             </div>

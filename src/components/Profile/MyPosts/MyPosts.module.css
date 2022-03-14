@@ -26,3 +26,7 @@
     background-color: #1c7d74;
     border-color: #1b746c;
 }
+
+.form_control{
+    resize: none
+}

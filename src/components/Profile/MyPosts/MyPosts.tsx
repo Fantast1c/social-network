@@ -34,7 +34,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div>
                 <h3>myPosts</h3>
                 <div>
-                    <div><textarea className="form-control" onChange={onPostChange} ref={newPostElement}
+                    <div><textarea className={s.form_control} onChange={onPostChange} ref={newPostElement}
                                    value={props.newPostText}/></div>
                     <div>
                         <button className={s.button} onClick={onAddPost}>add post</button>
