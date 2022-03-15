@@ -4,6 +4,7 @@ import userPhoto from '../../assets/images/noPhoto.jpg'
 import {useEffect} from "react";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {NavLink} from "react-router-dom";
+import {follow, getUsers, unFollow} from "../../api/api";
 
 export type UsersPropsType = {
     users: Array<UserPropsType>
@@ -33,12 +34,11 @@ export type  UserPropsType = {
 const Users = (props: UsersPropsType) => {
     useEffect(() => {
         props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`,
-            {withCredentials:true})
-            .then(response => setTimeout(() => {
+        getUsers(props.currentPage, props.pageSize)
+            .then(data => setTimeout(() => {
                     props.toggleIsFetching(false)
-                    props.setUsers(response.data.items)
-                    props.setTotalUserCount(response.data.totalCount)
+                    props.setUsers(data.items)
+                    props.setTotalUserCount(data.totalCount)
                 }, 400)
             );
     }, [])
@@ -47,11 +47,10 @@ const Users = (props: UsersPropsType) => {
     const onPageChanged = (pageNumber: number) => {
         props.setCurrentPage(pageNumber)
         props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`,
-            {withCredentials:true})
-            .then(response => setTimeout(() => {
+        getUsers(pageNumber, props.pageSize)
+            .then(data => setTimeout(() => {
                 props.toggleIsFetching(false)
-                props.setUsers(response.data.items)
+                props.setUsers(data.items)
             }, 400));
     }
 
@@ -89,31 +88,22 @@ const Users = (props: UsersPropsType) => {
                         <div>
                             {u.followed ?
                                 <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                        {withCredentials: true,
-                                                headers: {"API-KEY":"1fcd203f-113c-4b79-ac22-512b6e875c51"}
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
+
+                                    unFollow(u.id)
+                                        .then(data => {
+                                            if (data.resultCode === 0) {
                                                 props.unFollow(u.id);
                                             }
                                         });
-
-
-
                                 }}>unfollow</button> :
+
                                 <button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                        {withCredentials: true,
-                                            headers: {"API-KEY":"1fcd203f-113c-4b79-ac22-512b6e875c51"}
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
+                                    follow(u.id)
+                                        .then(data => {
+                                            if (data.resultCode === 0) {
                                                 props.follow(u.id);
                                             }
                                         });
-
-
                                 }}>follow</button>}
                         </div>
                     </span>

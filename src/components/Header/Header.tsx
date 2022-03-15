@@ -6,6 +6,7 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../redux/store";
 import {InitStateType, setUserDataAC} from "../../redux/auth-reducer";
+import {login} from "../../api/api";
 
 const Header = () => {
 
@@ -13,8 +14,7 @@ const Header = () => {
     const state = useSelector<AppStoreType,InitStateType>(state => state.auth)
 
     useEffect(()=>{
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials:true})
-            .then(response =>{
+        login().then(response =>{
                     dispatch(setUserDataAC(response.data.data))
             })},[])
 debugger
