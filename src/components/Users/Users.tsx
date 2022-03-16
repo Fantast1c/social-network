@@ -5,6 +5,9 @@ import {useEffect} from "react";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {follow, getUsers, unFollow} from "../../api/api";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStoreType} from "../../redux/store";
+import {InitStateType, setToggleIsFetchingAC, ToggleFollowingProgressAC} from "../../redux/users-reducer";
 
 export type UsersPropsType = {
     users: Array<UserPropsType>
@@ -32,6 +35,10 @@ export type  UserPropsType = {
 
 }
 const Users = (props: UsersPropsType) => {
+
+    const dispatch = useDispatch()
+    let state = useSelector<AppStoreType, InitStateType>(state => state.usersPage)
+
     useEffect(() => {
         props.toggleIsFetching(true)
         getUsers(props.currentPage, props.pageSize)
@@ -87,22 +94,25 @@ const Users = (props: UsersPropsType) => {
                     <span>
                         <div>
                             {u.followed ?
-                                <button onClick={() => {
-
+                                <button disabled={state.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                                    dispatch(ToggleFollowingProgressAC(true, u.id))
                                     unFollow(u.id)
                                         .then(data => {
                                             if (data.resultCode === 0) {
                                                 props.unFollow(u.id);
                                             }
+                                            dispatch(ToggleFollowingProgressAC(false, u.id))
                                         });
                                 }}>unfollow</button> :
 
-                                <button onClick={() => {
+                                <button disabled={state.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                                    dispatch(ToggleFollowingProgressAC(true, u.id))
                                     follow(u.id)
                                         .then(data => {
                                             if (data.resultCode === 0) {
                                                 props.follow(u.id);
                                             }
+                                            dispatch(ToggleFollowingProgressAC(false,u.id))
                                         });
                                 }}>follow</button>}
                         </div>
