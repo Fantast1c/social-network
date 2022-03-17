@@ -1,4 +1,5 @@
 import {UserPropsType} from "../components/Users/Users";
+import {followAPI, getUsersAPI, unFollowAPI} from "../api/api";
 
 export type  UsersPropsType = {
     users: Array<UserPropsType>
@@ -75,6 +76,43 @@ export const setCurrentPageAC = (currentPage: number) => ({type: "SET-CURRENT-PA
 export const setTotalUserCountAC = (totalUsersCount: number) => ({type: "SET-TOTAL-USER-COUNT", count: totalUsersCount})
 export const setToggleIsFetchingAC = (isFetching: boolean) => ({type: "SET-TOGGLE-IS-FETCHING", isFetching})
 export const ToggleFollowingProgressAC = (isFetching: boolean, id:number) => ({type: "TOGGLE-IS-FOLLOWING-PROGRESS", isFetching,id})
+
+export const getUsersTC= (currentPage:number, pageSize:number)=> {
+    return (dispatch: any) => {
+        dispatch(setToggleIsFetchingAC(true))
+        getUsersAPI(currentPage, pageSize)
+            .then(data => {
+                    dispatch(setToggleIsFetchingAC(false))
+                    dispatch(setUsersAC(data.items))
+                    dispatch(setTotalUserCountAC(data.totalCount))
+                }
+            );
+    }
+}
+
+export const followTC= (userId:number)=>(dispatch: any) => {
+        dispatch(ToggleFollowingProgressAC(true, userId))
+
+        followAPI(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followAC(userId))
+                }
+                dispatch(ToggleFollowingProgressAC(false,userId))
+            });
+}
+
+export const unFollowTC= (userId:number)=> (dispatch: any) => {
+        dispatch(ToggleFollowingProgressAC(true, userId))
+        unFollowAPI(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unFollowAC(userId))
+                }
+                dispatch(ToggleFollowingProgressAC(false,userId))
+            });
+    }
+
 
 
 export default usersReducer;

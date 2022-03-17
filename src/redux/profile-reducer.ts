@@ -1,3 +1,5 @@
+import {getProfileAPI} from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE"
@@ -32,7 +34,6 @@ let initialState = {
 }
 
 export type InitStateType = typeof initialState
-
 const profileReducer = (state: InitStateType = initialState, action: any):  InitStateType => {
     switch (action.type) {
         case ADD_POST: {
@@ -65,5 +66,11 @@ const profileReducer = (state: InitStateType = initialState, action: any):  Init
 export const addPostAC = () => ({type: "ADD-POST"})
 export const updateNewPostTextAC = (text: string) => ({type: "UPDATE-NEW-POST-TEXT", newText: text})
 export const setUserProfileAC = (profile:any) =>({type:SET_USER_PROFILE, profile})
+export const getUserProfileTC =(userId:number)=> {
+    return (dispatch:any) => {
+        getProfileAPI(userId)
+            .then(response => dispatch(setUserProfileAC(response.data)))
+    }
+}
 
 export default profileReducer;

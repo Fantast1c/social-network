@@ -1,13 +1,11 @@
 import s from './Users.module.css'
-import axios from "axios";
 import userPhoto from '../../assets/images/noPhoto.jpg'
 import {useEffect} from "react";
 import {Spinner} from "../../assets/spinner/Spinner";
 import {NavLink} from "react-router-dom";
-import {follow, getUsers, unFollow} from "../../api/api";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStoreType} from "../../redux/store";
-import {InitStateType, setToggleIsFetchingAC, ToggleFollowingProgressAC} from "../../redux/users-reducer";
+import {InitStateType,} from "../../redux/users-reducer";
 
 export type UsersPropsType = {
     users: Array<UserPropsType>
@@ -17,10 +15,12 @@ export type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    setCurrentPage: (p: any) => void
     setTotalUserCount: (response: any) => void
     isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
+    getUsersThunk: (currentPage:number, pageSize:number) => void
+    followTC: (userId:number) => void
+    unFollowTC: (userId:number) => void
+
 }
 export type  UserPropsType = {
     name: string,
@@ -33,37 +33,21 @@ export type  UserPropsType = {
     status: string | null,
     followed: boolean
 
+
 }
 const Users = (props: UsersPropsType) => {
 
-    const dispatch = useDispatch()
     let state = useSelector<AppStoreType, InitStateType>(state => state.usersPage)
 
     useEffect(() => {
-        props.toggleIsFetching(true)
-        getUsers(props.currentPage, props.pageSize)
-            .then(data => setTimeout(() => {
-                    props.toggleIsFetching(false)
-                    props.setUsers(data.items)
-                    props.setTotalUserCount(data.totalCount)
-                }, 400)
-            );
+        props.getUsersThunk(props.currentPage, props.pageSize)
     }, [])
-
-
     const onPageChanged = (pageNumber: number) => {
-        props.setCurrentPage(pageNumber)
-        props.toggleIsFetching(true)
-        getUsers(pageNumber, props.pageSize)
-            .then(data => setTimeout(() => {
-                props.toggleIsFetching(false)
-                props.setUsers(data.items)
-            }, 400));
+         props.getUsersThunk(pageNumber, props.pageSize)
     }
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     pagesCount = pagesCount > 20 ? pagesCount = 20 : pagesCount
-
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
@@ -94,27 +78,11 @@ const Users = (props: UsersPropsType) => {
                     <span>
                         <div>
                             {u.followed ?
-                                <button disabled={state.followingInProgress.some(id=>id===u.id)} onClick={() => {
-                                    dispatch(ToggleFollowingProgressAC(true, u.id))
-                                    unFollow(u.id)
-                                        .then(data => {
-                                            if (data.resultCode === 0) {
-                                                props.unFollow(u.id);
-                                            }
-                                            dispatch(ToggleFollowingProgressAC(false, u.id))
-                                        });
-                                }}>unfollow</button> :
-
-                                <button disabled={state.followingInProgress.some(id=>id===u.id)} onClick={() => {
-                                    dispatch(ToggleFollowingProgressAC(true, u.id))
-                                    follow(u.id)
-                                        .then(data => {
-                                            if (data.resultCode === 0) {
-                                                props.follow(u.id);
-                                            }
-                                            dispatch(ToggleFollowingProgressAC(false,u.id))
-                                        });
-                                }}>follow</button>}
+                                <button disabled={state.followingInProgress.some(id=>id===u.id)}
+                                        onClick={() => {props.unFollowTC(u.id)}}>unfollow</button>
+                                :
+                                <button disabled={state.followingInProgress.some(id=>id===u.id)}
+                                        onClick={() => {props.followTC(u.id)}}>follow</button>}
                         </div>
                     </span>
                     <span>

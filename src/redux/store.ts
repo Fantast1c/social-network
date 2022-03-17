@@ -1,8 +1,9 @@
-import {combineReducers, createStore, Store} from "redux";
+import {combineReducers, createStore, Store, applyMiddleware} from "redux";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
+import  thunkMiddleware from "redux-thunk";
 
 export type PostType = {
     message: string;
@@ -40,6 +41,6 @@ let reducers = combineReducers({
 
 export type AppStoreType = ReturnType<typeof reducers>
 
-let store: Store = createStore(reducers);
+let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default store;

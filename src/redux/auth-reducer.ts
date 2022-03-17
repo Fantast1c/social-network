@@ -1,3 +1,5 @@
+import {loginAPI} from "../api/api";
+
 const SET_USER_DATA = "SET-USER-DATA";
 
 type LoginType = {
@@ -32,6 +34,13 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
 }
 
 export const setUserDataAC = (data:InitStateType) => ({type: SET_USER_DATA, data})
+export const authTC = () => (dispatch:any) =>{
+    loginAPI().then(response =>{
+        dispatch(setUserDataAC(response.data))
+
+    })
+}
+
 
 
 export default authReducer;
