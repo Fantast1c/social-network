@@ -5,6 +5,7 @@ import {AppStoreType} from "../../../redux/store";
 import {InitStateType} from "../../../redux/profile-reducer";
 import {Spinner} from "../../../assets/spinner/Spinner";
 import profileImage from "../../../assets/images/noPhoto.jpg"
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = () => {
 
@@ -13,12 +14,14 @@ const ProfileInfo = () => {
 
 
 
-    return (<div className={s.profileInfo}>
+    return (
+        <div className={s.profileInfo}>
             <div className={s.profileImg}>
                 {state.profile.photos?.large ?
                     <img src={state.profile.photos?.large} alt='profilePhoto'/> :
                     <img src={profileImage} alt='profilePhoto'/>}
             </div>
+            <ProfileStatus status = {"My status"}/>
             <div className={s.descriptionBlock}>
                 <div>{state.profile.aboutMe}</div>
             </div>
