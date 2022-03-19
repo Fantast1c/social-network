@@ -17,9 +17,9 @@ export type UsersPropsType = {
     currentPage: number
     setTotalUserCount: (response: any) => void
     isFetching: boolean
-    getUsersThunk: (currentPage:number, pageSize:number) => void
-    followTC: (userId:number) => void
-    unFollowTC: (userId:number) => void
+    getUsersThunk: (currentPage: number, pageSize: number) => void
+    followTC: (userId: number) => void
+    unFollowTC: (userId: number) => void
 
 }
 export type  UserPropsType = {
@@ -43,7 +43,7 @@ const Users = (props: UsersPropsType) => {
         props.getUsersThunk(props.currentPage, props.pageSize)
     }, [])
     const onPageChanged = (pageNumber: number) => {
-         props.getUsersThunk(pageNumber, props.pageSize)
+        props.getUsersThunk(pageNumber, props.pageSize)
     }
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -70,23 +70,27 @@ const Users = (props: UsersPropsType) => {
             {
                 props.users.map((u) => <div key={u.id}>
                     <span>
-                        <div>
-                            <NavLink to={'/profile/' + u.id}> <img src={u.photos.small || userPhoto} alt="photo"
-                                                                   className={s.photo}/></NavLink>
-                        </div>
+                    <div>
+                    <NavLink to={'/profile/' + u.id}> <img src={u.photos.small || userPhoto} alt="photo"
+                                                           className={s.photo}/></NavLink>
+                    </div>
                     </span>
                     <span>
-                        <div>
-                            {u.followed ?
-                                <button disabled={state.followingInProgress.some(id=>id===u.id)}
-                                        onClick={() => {props.unFollowTC(u.id)}}>unfollow</button>
-                                :
-                                <button disabled={state.followingInProgress.some(id=>id===u.id)}
-                                        onClick={() => {props.followTC(u.id)}}>follow</button>}
-                        </div>
+                    <div>
+                {u.followed ?
+                    <button disabled={state.followingInProgress.some(id => id === u.id)}
+                            onClick={() => {
+                                props.unFollowTC(u.id)
+                            }}>unfollow</button>
+                    :
+                    <button disabled={state.followingInProgress.some(id => id === u.id)}
+                            onClick={() => {
+                                props.followTC(u.id)
+                            }}>follow</button>}
+                    </div>
                     </span>
                     <span>
-                        <div>{u.name}</div><div>{u.status}</div>
+                    <div>{u.name}</div><div>{u.status}</div>
                     </span>
                 </div>)
             }

@@ -16,7 +16,7 @@ const Profile = (props: any) => {
             userId = 18645
         }
         dispatch(getUserProfileTC(userId))
-    }, [])
+    }, [props.match.params.userId])
 
     return (
         <div className={s.container}>

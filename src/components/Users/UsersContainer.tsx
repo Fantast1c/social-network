@@ -2,13 +2,16 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {
     followAC,
-    setCurrentPageAC,
-    setToggleIsFetchingAC,
     setTotalUserCountAC,
     setUsersAC,
     unFollowAC,
     getUsersTC, followTC, unFollowTC
 } from "../../redux/users-reducer";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import Dialogs from "../Dialogs/Dialogs";
+
+
+let AuthRedirectComponent = WithAuthRedirect(Users)
 
 let mapStateToProps = (state: any) => {
     return {
@@ -16,7 +19,8 @@ let mapStateToProps = (state: any) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        isAuth:state.auth.isAuth
     }
 }
 
@@ -52,5 +56,5 @@ let mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
-
+let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export default UsersContainer

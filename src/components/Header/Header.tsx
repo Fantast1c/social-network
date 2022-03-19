@@ -16,7 +16,7 @@ const Header = () => {
     },[])
     return (
         <header className={s.header}>
-            <div><img src={logo}/></div>
+            <div><img src={logo} alt="Logo"/></div>
 
 
             <div>

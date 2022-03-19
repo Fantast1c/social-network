@@ -9,6 +9,7 @@ import Settings from "./components/Settings/Settings";
 import {ProfileWithRouter} from "./components/Profile/Profile";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import Login from "./components/login/Login";
 
 const App = () => {
     return (
@@ -20,12 +21,13 @@ const App = () => {
                         <Navbar/>
                         <div className="app-wrapper-content">
                             <Switch>
-                                <Route exact path="/profile/:userId" render={() => <ProfileWithRouter/>}/>
+                                <Route exact path="/profile/:userId?" render={() => <ProfileWithRouter/>}/>
                                 <Route path="/users" render={() => <UsersContainer/>}/>
-                                <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                                <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
                                 <Route path="/news" render={() => <News/>}/>
                                 <Route path="/music" render={() => <Music/>}/>
                                 <Route path="/settings" render={() => <Settings/>}/>
+                                <Route path="/login" render={() => <Login/>}/>
                             </Switch>
                         </div>
                     </div>

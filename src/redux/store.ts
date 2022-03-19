@@ -2,7 +2,7 @@ import {combineReducers, createStore, Store, applyMiddleware} from "redux";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
 import usersReducer from "./users-reducer";
-import authReducer from "./auth-reducer";
+import authReducer, {LoginType} from "./auth-reducer";
 import  thunkMiddleware from "redux-thunk";
 
 export type PostType = {
@@ -29,7 +29,8 @@ export type MessagesPageType = {
 }
 export type RootStateType = {
     profilePage: ProfilePageType,
-    messagesPage: MessagesPageType
+    messagesPage: MessagesPageType,
+    auth: LoginType
 }
 
 let reducers = combineReducers({

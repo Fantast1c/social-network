@@ -8,14 +8,15 @@ export type DialogsPropsType={
     updateMessageBody:(body:string)=> void,
     sendMessage:()=> void
     messagesPage: MessagesPageType
+
 }
 
 const Dialogs = (props:DialogsPropsType) => {
 
     let state = props.messagesPage
 
-    let dialogsElements = state.dialogs.map((d: any) => <DialogItem name= {d.name} id={d.id}/>)
-    let messagesElements = state.messages.map((m: any) => <Message text= {m.text}/>)
+    let dialogsElements = state.dialogs.map((d: any) => <DialogItem name= {d.name} id={d.id} key={d.id}/>)
+    let messagesElements = state.messages.map((m: any) => <Message text= {m.text} key={m.id}/>)
     let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = ()=>{props.sendMessage()}
@@ -24,6 +25,7 @@ const Dialogs = (props:DialogsPropsType) => {
        let body = e.target.value
         props.updateMessageBody(body);
     }
+
 
     return (
         <div className={s.dialogs}>
