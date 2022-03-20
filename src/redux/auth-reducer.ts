@@ -36,7 +36,6 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
 export const setUserDataAC = (data:InitStateType) => ({type: SET_USER_DATA, data})
 export const authTC = () => (dispatch:any) =>{
     loginAPI().then(response =>{
-        debugger
         if(response.resultCode===0) {
             dispatch(setUserDataAC(response.data))
         }

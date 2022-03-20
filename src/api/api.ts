@@ -40,4 +40,10 @@ export const getProfileAPI = (userId:number) => {
     return instance.get(`profile/${userId}`)
 }
 
+export const getStatusAPI = (userId:number) => {
+    return instance.get(`profile/status/${userId}`)
+}
+export const updateStatusAPI = (status:object) => {
+    return instance.put(`profile/status`, {status})
+}
 

@@ -1,9 +1,8 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../redux/store";
 import {InitStateType} from "../../../redux/profile-reducer";
-import {Spinner} from "../../../assets/spinner/Spinner";
 import profileImage from "../../../assets/images/noPhoto.jpg"
 import ProfileStatus from "./ProfileStatus";
 
@@ -13,7 +12,6 @@ const ProfileInfo = () => {
     const state = useSelector<AppStoreType, InitStateType>(state => state.profilePage)
 
 
-
     return (
         <div className={s.profileInfo}>
             <div className={s.profileImg}>
@@ -21,7 +19,8 @@ const ProfileInfo = () => {
                     <img src={state.profile.photos?.large} alt='profilePhoto'/> :
                     <img src={profileImage} alt='profilePhoto'/>}
             </div>
-            <ProfileStatus status = {"My status"}/>
+
+            <ProfileStatus status = {state.status}/>
             <div className={s.descriptionBlock}>
                 <div>{state.profile.aboutMe}</div>
             </div>
