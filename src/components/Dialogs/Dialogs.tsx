@@ -3,6 +3,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
 import {MessagesPageType} from "../../redux/store";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 export type DialogsPropsType={
     updateMessageBody:(body:string)=> void,
@@ -34,14 +35,28 @@ const Dialogs = (props:DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-                <div>
-                    <div><textarea onChange={onNewMessageChange} value={newMessageBody}
-                                   placeholder="Enter your message" className={s.form_control} /></div>
-                    <div><button className={s.button} onClick={onSendMessageClick}>send message</button></div>
-                </div>
+                    <AddMessageForm/>
             </div>
         </div>
     )
 }
 
+type Inputs ={
+    message:string
+}
+
+const AddMessageForm = () =>{
+
+    const {register, handleSubmit, reset} = useForm<Inputs>()
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        console.log(data)
+        reset()
+    } ;
+
+    return(
+    <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="message" placeholder="Enter your message" className={s.form_control}
+            {...register("message", {required:true})}/>
+        <input type="submit" className={s.button}/>
+    </form>)}
 export default Dialogs
