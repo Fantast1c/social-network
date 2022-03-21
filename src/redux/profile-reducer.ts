@@ -5,6 +5,10 @@ const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 const SET_STATUS = "SET-STATUS"
 
+type StatusType ={
+    status:string
+}
+
 type ProfileType = {
     aboutMe: string,
     contacts: {
@@ -34,7 +38,7 @@ let initialState = {
     profile: null || {} as ProfileType,
     status: null || ""
 }
-
+console.log("status:",initialState.status)
 export type InitStateType = typeof initialState
 const profileReducer = (state: InitStateType = initialState, action: any): InitStateType => {
     switch (action.type) {
@@ -85,6 +89,7 @@ export const getStatusTC = (userId: number) => (dispatch: any) => {
     getStatusAPI(userId)
         .then(response => dispatch(setStatusAC(response.data)))
 }
+
 export const updateStatusTC = (status: any) => (dispatch: any) => {
     updateStatusAPI(status)
         .then(response => {

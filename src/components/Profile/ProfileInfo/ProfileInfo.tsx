@@ -1,10 +1,10 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../redux/store";
 import {InitStateType} from "../../../redux/profile-reducer";
 import profileImage from "../../../assets/images/noPhoto.jpg"
 import ProfileStatus from "./ProfileStatus";
+import {useSelector} from "react-redux";
 
 const ProfileInfo = () => {
 

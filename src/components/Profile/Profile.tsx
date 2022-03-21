@@ -18,8 +18,9 @@ const Profile = (props: any) => {
         if (!userId) {
             userId = 18645
         }
-        dispatch(getUserProfileTC(userId))
         dispatch(getStatusTC(userId))
+        dispatch(getUserProfileTC(userId))
+
 
     }, [props.match.params.userId])
 
