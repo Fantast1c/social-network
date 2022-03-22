@@ -3,14 +3,14 @@ import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {getStatusTC, getUserProfileTC, InitStateType, updateStatusTC} from "../../redux/profile-reducer";
+import {getStatusTC, getUserProfileTC, InitStateType} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {AppStoreType} from "../../redux/store";
 
 const Profile = (props: any) => {
 
     const dispatch = useDispatch()
-    useSelector<AppStoreType, InitStateType>(state=>state.profilePage)
+    //let state = useSelector<AppStoreType, InitStateType>(state=>state.profilePage)
 
 
     useEffect(() => {

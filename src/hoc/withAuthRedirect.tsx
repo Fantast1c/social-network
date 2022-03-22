@@ -4,8 +4,7 @@ import React from "react";
 
 export let WithAuthRedirect = (Component:any) =>{
     function RedirectComponent(props: any) {
-        console.log("isAuth:", props.isAuth)
-        if (!props.isAuth) return <Redirect to='/login'/>
+        if (!props.isAuth) {return <Redirect to='/login'/>}
         return <Component {...props}/>
     }
 

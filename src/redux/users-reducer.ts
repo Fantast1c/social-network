@@ -85,6 +85,7 @@ export const getUsersTC= (currentPage:number, pageSize:number)=> {
                     dispatch(setToggleIsFetchingAC(false))
                     dispatch(setUsersAC(data.items))
                     dispatch(setTotalUserCountAC(data.totalCount))
+                    dispatch(setCurrentPageAC(currentPage))
                 }
             );
     }

@@ -4,6 +4,8 @@ import Message from "./Message/Message";
 import React from "react";
 import {MessagesPageType} from "../../redux/store";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {sendMessageAC, updateMessageBodyAC} from "../../redux/messages-reducer";
 
 export type DialogsPropsType={
     updateMessageBody:(body:string)=> void,
@@ -18,14 +20,7 @@ const Dialogs = (props:DialogsPropsType) => {
 
     let dialogsElements = state.dialogs.map((d: any) => <DialogItem name= {d.name} id={d.id} key={d.id}/>)
     let messagesElements = state.messages.map((m: any) => <Message text= {m.text} key={m.id}/>)
-    let newMessageBody = state.newMessageBody;
 
-    let onSendMessageClick = ()=>{props.sendMessage()}
-
-    let onNewMessageChange = (e: any)=>{
-       let body = e.target.value
-        props.updateMessageBody(body);
-    }
 
 
     return (
@@ -47,9 +42,12 @@ type Inputs ={
 
 const AddMessageForm = () =>{
 
+    const dispatch = useDispatch()
+
     const {register, handleSubmit, reset} = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data)
+        dispatch(updateMessageBodyAC(data.message))
+        dispatch(sendMessageAC())
         reset()
     } ;
 
