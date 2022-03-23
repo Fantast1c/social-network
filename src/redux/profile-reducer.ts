@@ -29,7 +29,7 @@ type ProfileType = {
 }
 
 let initialState = {
-    newPostText: "NEW POST",
+    newPostText: "",
     posts: [
         {id: 1, likeCounts: 13, message: "First Post"},
         {id: 2, likeCounts: 144, message: "Second Post"},

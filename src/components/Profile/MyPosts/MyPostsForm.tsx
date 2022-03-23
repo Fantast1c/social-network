@@ -1,10 +1,8 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import {useForm, SubmitHandler} from "react-hook-form";
-import {useDispatch, useSelector} from "react-redux";
-import {stat} from "fs";
-import {AppStoreType} from "../../../redux/store";
-import {InitStateType} from "../../../redux/profile-reducer";
+import {useDispatch} from "react-redux";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type Inputs = {
     message:string
@@ -12,17 +10,17 @@ type Inputs = {
 
 const MyPostsForm = () => {
     const dispatch = useDispatch()
-    let state = useSelector<AppStoreType, InitStateType>(state => state.profilePage)
 
     const {register, handleSubmit, reset} = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data)
+        dispatch(updateNewPostTextAC(data.message))
+        dispatch(addPostAC())
         reset()
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div><input className={s.form_control} value={state.newPostText}
+            <div><input className={s.form_control}
                         {...register("message",{required:true})}/></div>
             <div><input type="submit" className={s.button}  /></div>
         </form>

@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {getStatusTC, getUserProfileTC, InitStateType} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {AppStoreType} from "../../redux/store";
+import MyPosts from "./MyPosts/MyPosts";
 
 const Profile = (props: any) => {
 
@@ -28,7 +28,7 @@ const Profile = (props: any) => {
         <div className={s.container}>
             <div className={s.profile}>
                 <ProfileInfo/>
-                <MyPostsContainer/>
+                <MyPosts/>
             </div>
         </div>
 
