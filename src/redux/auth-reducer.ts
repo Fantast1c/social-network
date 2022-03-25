@@ -32,13 +32,18 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
     }
 }
 
-export const setUserDataAC = (data:InitStateType) => ({type: SET_USER_DATA, data})
+export const setUserDataAC = (data:InitStateType) => ({type: SET_USER_DATA, data, isAuth:false})
 export const authTC = () => (dispatch:any) =>{
-    authAPI().then(response =>{
+   return  authAPI()
+        .then(response =>{
         if(response.resultCode===0) {
             let {id, email, login} = response.data
             dispatch(setUserDataAC({id, email, login, isAuth:true}))
         }
+        // else {
+        //     let message = response.data.messages.length>0? response.data.messages[0]:"Some error"
+        //     dispatch(message)
+        // }
     })
 }
 

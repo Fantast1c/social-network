@@ -11,9 +11,6 @@ const Header = () => {
     const dispatch = useDispatch()
     const state = useSelector<AppStoreType,InitStateType>(state => state.auth)
 
-    useEffect(()=>{
-        dispatch(authTC())
-    },[])
     return (
         <header className={s.header}>
             <div><img src={logo} alt="Logo"/></div>

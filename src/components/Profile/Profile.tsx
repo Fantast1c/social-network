@@ -1,25 +1,26 @@
 import React, {useEffect} from "react";
 import s from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
-import {withRouter} from "react-router-dom";
-
 import MyPosts from "./MyPosts/MyPosts";
+import {AppStoreType} from "../../redux/store";
+import {InitStateType} from "../../redux/auth-reducer";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withRouter} from "react-router-dom";
 
 const Profile = (props: any) => {
 
     const dispatch = useDispatch()
+    let state = useSelector<AppStoreType, InitStateType>(state => state.auth)
 
     useEffect(() => {
         let userId = props.match.params.userId
         if (!userId) {
-            userId = 18645
+            userId = state.id
         }
         dispatch(getStatusTC(userId))
         dispatch(getUserProfileTC(userId))
-
-
     }, [props.match.params.userId])
 
     return (
@@ -33,5 +34,6 @@ const Profile = (props: any) => {
     );
 }
 
+export let  ProfileWithRouter = withRouter(Profile)
 
-export const ProfileWithRouter = withRouter(Profile);
+

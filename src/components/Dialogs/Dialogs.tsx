@@ -6,6 +6,7 @@ import {AppStoreType} from "../../redux/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {InitStateType, sendMessageAC} from "../../redux/messages-reducer";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -54,4 +55,4 @@ const AddMessageForm = () =>{
         <input type="submit" className={s.button}/>
     </form>)}
 
-export default Dialogs
+export let DialogsWithRouter = WithAuthRedirect(Dialogs)

@@ -89,4 +89,5 @@ export const updateStatusTC = (status: any) => (dispatch: any) => {
         )
 }
 
+
 export default profileReducer;

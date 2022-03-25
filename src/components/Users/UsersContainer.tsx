@@ -8,7 +8,7 @@ import {
     getUsersTC, followTC, unFollowTC
 } from "../../redux/users-reducer";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
-import Dialogs from "../Dialogs/Dialogs";
+
 
 
 let AuthRedirectComponent = WithAuthRedirect(Users)
