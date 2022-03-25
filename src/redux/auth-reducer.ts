@@ -1,4 +1,4 @@
-import {loginAPI} from "../api/api";
+import {authAPI, loginAPI, logoutAPI} from "../api/api";
 
 const SET_USER_DATA = "SET-USER-DATA";
 
@@ -25,7 +25,6 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
             return {
                 ...state,
                 ...action.data,
-                isAuth:true
             }
 
         default:
@@ -35,9 +34,26 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
 
 export const setUserDataAC = (data:InitStateType) => ({type: SET_USER_DATA, data})
 export const authTC = () => (dispatch:any) =>{
-    loginAPI().then(response =>{
+    authAPI().then(response =>{
         if(response.resultCode===0) {
-            dispatch(setUserDataAC(response.data))
+            let {id, email, login} = response.data
+            dispatch(setUserDataAC({id, email, login, isAuth:true}))
+        }
+    })
+}
+
+export const loginTC = (email: string, password:string, rememberMe:boolean) => (dispatch:any) =>{
+    loginAPI(email, password, rememberMe).then(response =>{
+        if(response.data.resultCode===0) {
+            dispatch(authTC())
+        }
+    })
+}
+
+export const logoutTC = () => (dispatch:any) =>{
+    logoutAPI().then(response =>{
+        if(response.data.resultCode===0) {
+            dispatch(setUserDataAC({id:null, email: null, login: null, isAuth:false}))
         }
     })
 }

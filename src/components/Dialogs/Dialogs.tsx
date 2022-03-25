@@ -2,21 +2,18 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
-import {MessagesPageType} from "../../redux/store";
+import {AppStoreType} from "../../redux/store";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
-import {sendMessageAC, updateMessageBodyAC} from "../../redux/messages-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {InitStateType, sendMessageAC} from "../../redux/messages-reducer";
 
-export type DialogsPropsType={
-    updateMessageBody:(body:string)=> void,
-    sendMessage:()=> void
-    messagesPage: MessagesPageType
 
-}
 
-const Dialogs = (props:DialogsPropsType) => {
 
-    let state = props.messagesPage
+
+const Dialogs = () => {
+
+    let state = useSelector<AppStoreType, InitStateType>(state=>state.messagesPage)
 
     let dialogsElements = state.dialogs.map((d: any) => <DialogItem name= {d.name} id={d.id} key={d.id}/>)
     let messagesElements = state.messages.map((m: any) => <Message text= {m.text} key={m.id}/>)
@@ -46,8 +43,7 @@ const AddMessageForm = () =>{
 
     const {register, handleSubmit, reset} = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = data => {
-        dispatch(updateMessageBodyAC(data.message))
-        dispatch(sendMessageAC())
+        dispatch(sendMessageAC(data.message))
         reset()
     } ;
 
@@ -57,4 +53,5 @@ const AddMessageForm = () =>{
             {...register("message", {required:true})}/>
         <input type="submit" className={s.button}/>
     </form>)}
+
 export default Dialogs

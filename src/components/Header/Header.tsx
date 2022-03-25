@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../redux/store";
-import {authTC, InitStateType} from "../../redux/auth-reducer";
+import {authTC, InitStateType, logoutTC} from "../../redux/auth-reducer";
 
 const Header = () => {
 
@@ -20,7 +20,10 @@ const Header = () => {
 
 
             <div>
-                {state.isAuth? state.id:<NavLink to={'/login'} className={s.loginBlock}>Login</NavLink>}
+                {state.isAuth?
+                    <div>{state.id}- <button onClick={()=> dispatch (logoutTC())}>Log out</button></div>
+                    :
+                    <NavLink to={'/login'} className={s.loginBlock}>Login</NavLink>}
                 </div>
         </header>
 

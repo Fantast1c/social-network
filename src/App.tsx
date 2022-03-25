@@ -7,9 +7,9 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {ProfileWithRouter} from "./components/Profile/Profile";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/login/Login";
+import Dialogs from "./components/Dialogs/Dialogs";
 
 const App = () => {
     return (
@@ -23,7 +23,7 @@ const App = () => {
                             <Switch>
                                 <Route exact path="/profile/:userId?" render={() => <ProfileWithRouter/>}/>
                                 <Route path="/users" render={() => <UsersContainer/>}/>
-                                <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
+                                <Route exact path="/dialogs" render={() => <Dialogs/>}/>
                                 <Route path="/news" render={() => <News/>}/>
                                 <Route path="/music" render={() => <Music/>}/>
                                 <Route path="/settings" render={() => <Settings/>}/>

@@ -1,13 +1,10 @@
 import {getProfileAPI, getStatusAPI, updateStatusAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 const SET_STATUS = "SET-STATUS"
 
-type StatusType ={
-    status:string
-}
+
 
 type ProfileType = {
     aboutMe: string,
@@ -29,7 +26,6 @@ type ProfileType = {
 }
 
 let initialState = {
-    newPostText: "",
     posts: [
         {id: 1, likeCounts: 13, message: "First Post"},
         {id: 2, likeCounts: 144, message: "Second Post"},
@@ -38,7 +34,7 @@ let initialState = {
     profile: null || {} as ProfileType,
     status: null || ""
 }
-console.log("status:",initialState.status)
+
 export type InitStateType = typeof initialState
 const profileReducer = (state: InitStateType = initialState, action: any): InitStateType => {
     switch (action.type) {
@@ -46,20 +42,14 @@ const profileReducer = (state: InitStateType = initialState, action: any): InitS
             let newPost = {
                 id: 4,
                 likeCounts: 0,
-                message: state.newPostText
+                message: action.newPostText
             }
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ""
             }
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
+
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -77,10 +67,10 @@ const profileReducer = (state: InitStateType = initialState, action: any): InitS
     }
 }
 
-export const addPostAC = () => ({type: "ADD-POST"})
-export const updateNewPostTextAC = (text: string) => ({type: "UPDATE-NEW-POST-TEXT", newText: text})
+export const addPostAC = (message:string) => ({type: "ADD-POST", newText:message})
 export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile})
 export const setStatusAC = (status: any) => ({type: SET_STATUS, status})
+
 export const getUserProfileTC = (userId: number) => (dispatch: any) => {
     getProfileAPI(userId)
         .then(response => dispatch(setUserProfileAC(response.data)))
@@ -89,7 +79,6 @@ export const getStatusTC = (userId: number) => (dispatch: any) => {
     getStatusAPI(userId)
         .then(response => dispatch(setStatusAC(response.data)))
 }
-
 export const updateStatusTC = (status: any) => (dispatch: any) => {
     updateStatusAPI(status)
         .then(response => {
@@ -99,6 +88,5 @@ export const updateStatusTC = (status: any) => (dispatch: any) => {
             }
         )
 }
-
 
 export default profileReducer;

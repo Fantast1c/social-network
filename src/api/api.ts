@@ -29,11 +29,18 @@ export const unFollowAPI = (id: number) => {
 }
 
 
-export const loginAPI = () => {
+export const authAPI = () => {
     return instance.get(`auth/me`)
         .then(response => {
             return response.data
         })
+}
+export const loginAPI = (email: string, password: string, rememberMe: boolean) => {
+    return instance.post(`auth/login`, {email, password, rememberMe})
+}
+
+export const logoutAPI = () => {
+    return instance.delete(`auth/login`)
 }
 
 export const getProfileAPI = (userId:number) => {
@@ -46,4 +53,5 @@ export const getStatusAPI = (userId:number) => {
 export const updateStatusAPI = (status:object) => {
     return instance.put(`profile/status`, {status})
 }
+
 
