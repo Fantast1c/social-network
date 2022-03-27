@@ -4,7 +4,6 @@ export type sendMessageAT = {
     type:"SEND-MESSAGE"
     newMessageBody:string
 }
-
 export type DialogType = {
     id: number,
     name: string
@@ -12,6 +11,10 @@ export type DialogType = {
 export type MessageType = {
     id: number,
     text: string
+}
+export type InitStateType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
 }
 
 let initialState: InitStateType = {
@@ -27,10 +30,7 @@ let initialState: InitStateType = {
     ]
 }
 
-export type InitStateType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-}
+
 
 const messagesReducer = (state: InitStateType = initialState, action: any): InitStateType => {
 
