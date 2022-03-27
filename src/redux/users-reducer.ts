@@ -46,7 +46,6 @@ const usersReducer = (state: UsersPropsType = initialState, action: any): UsersP
         }
         case "SET-USERS": {
             return {...state, users: action.users}
-
         }
         case "SET-CURRENT-PAGE": {
             return {...state, currentPage: action.currentPage}
@@ -75,45 +74,33 @@ export const setUsersAC = (users: string) => ({type: "SET-USERS", users})
 export const setCurrentPageAC = (currentPage: number) => ({type: "SET-CURRENT-PAGE", currentPage})
 export const setTotalUserCountAC = (totalUsersCount: number) => ({type: "SET-TOTAL-USER-COUNT", count: totalUsersCount})
 export const setToggleIsFetchingAC = (isFetching: boolean) => ({type: "SET-TOGGLE-IS-FETCHING", isFetching})
-export const ToggleFollowingProgressAC = (isFetching: boolean, id:number) => ({type: "TOGGLE-IS-FOLLOWING-PROGRESS", isFetching,id})
+export const ToggleFollowingProgressAC = (isFetching: boolean, id: number) => ({type: "TOGGLE-IS-FOLLOWING-PROGRESS", isFetching, id})
 
-export const getUsersTC= (currentPage:number, pageSize:number)=> {
-    return (dispatch: any) => {
-        dispatch(setToggleIsFetchingAC(true))
-        getUsersAPI(currentPage, pageSize)
-            .then(data => {
-                    dispatch(setToggleIsFetchingAC(false))
-                    dispatch(setUsersAC(data.items))
-                    dispatch(setTotalUserCountAC(data.totalCount))
-                    dispatch(setCurrentPageAC(currentPage))
-                }
-            );
-    }
+export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+    dispatch(setToggleIsFetchingAC(true))
+    let data = await getUsersAPI(currentPage, pageSize)
+    dispatch(setToggleIsFetchingAC(false))
+    dispatch(setUsersAC(data.items))
+    dispatch(setTotalUserCountAC(data.totalCount))
+    dispatch(setCurrentPageAC(currentPage))
 }
 
-export const followTC= (userId:number)=>(dispatch: any) => {
-        dispatch(ToggleFollowingProgressAC(true, userId))
-
-        followAPI(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(followAC(userId))
-                }
-                dispatch(ToggleFollowingProgressAC(false,userId))
-            });
+export const followTC = (userId: number) => async (dispatch: any) => {
+    dispatch(ToggleFollowingProgressAC(true, userId))
+    let data = await followAPI(userId)
+    if (data.resultCode === 0) {
+        dispatch(followAC(userId))
+    }
+    dispatch(ToggleFollowingProgressAC(false, userId))
 }
 
-export const unFollowTC= (userId:number)=> (dispatch: any) => {
-        dispatch(ToggleFollowingProgressAC(true, userId))
-        unFollowAPI(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unFollowAC(userId))
-                }
-                dispatch(ToggleFollowingProgressAC(false,userId))
-            });
+export const unFollowTC = (userId: number) => async (dispatch: any) => {
+    dispatch(ToggleFollowingProgressAC(true, userId))
+    let data = await unFollowAPI(userId)
+    if (data.resultCode === 0) {
+        dispatch(unFollowAC(userId))
     }
-
-
+    dispatch(ToggleFollowingProgressAC(false, userId))
+}
 
 export default usersReducer;

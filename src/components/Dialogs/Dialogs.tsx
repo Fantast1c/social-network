@@ -8,18 +8,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {InitStateType, sendMessageAC} from "../../redux/messages-reducer";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
-
-
-
-
 const Dialogs = () => {
 
     let state = useSelector<AppStoreType, InitStateType>(state=>state.messagesPage)
 
     let dialogsElements = state.dialogs.map((d: any) => <DialogItem name= {d.name} id={d.id} key={d.id}/>)
     let messagesElements = state.messages.map((m: any) => <Message text= {m.text} key={m.id}/>)
-
-
 
     return (
         <div className={s.dialogs}>
