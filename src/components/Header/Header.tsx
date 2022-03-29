@@ -20,7 +20,7 @@ const Header = () => {
                 {state.isAuth?
                     <div>{state.id}- <button onClick={()=> dispatch (logoutTC())}>Log out</button></div>
                     :
-                    <NavLink to={'/login'} className={s.loginBlock}>Login</NavLink>}
+                    <NavLink to={'/Login'} className={s.loginBlock}>Login</NavLink>}
                 </div>
         </header>
 

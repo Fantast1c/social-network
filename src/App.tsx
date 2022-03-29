@@ -7,14 +7,12 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
-import Login from "./components/login/Login";
+import Login from "./components/Login/Login";
 import {DialogsWithRouter} from "./components/Dialogs/Dialogs";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeAppTC, initType} from "./redux/app-reducer";
 import {AppStoreType} from "./redux/store";
 import {Spinner} from "./assets/spinner/Spinner";
-import {WithAuthRedirect} from "./hoc/withAuthRedirect";
-
 import {InitStateType} from "./redux/auth-reducer";
 import {ProfileWithRouter} from "./components/Profile/Profile";
 
@@ -34,7 +32,6 @@ const App = () => {
 
 
     return (
-        <BrowserRouter>
             <div className="app">
                 <Header/>
                 <div className="app-wrapper-main">
@@ -53,9 +50,7 @@ const App = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
-        </BrowserRouter>
     );
 }
 

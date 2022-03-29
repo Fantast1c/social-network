@@ -1,8 +1,8 @@
-import {UserPropsType} from "../components/Users/Users";
+import {UserType} from "../components/Users/Users";
 import {followAPI, getUsersAPI, unFollowAPI} from "../api/api";
 
 export type  UsersPropsType = {
-    users: Array<UserPropsType>
+    users: Array<UserType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
