@@ -1,3 +1,12 @@
 .selectedPage{
+    color: darkgreen;
     font-weight: bold;
+    border: 1px solid darkgreen;
+}
+
+.paginate{
+    margin: 1px;
+    display: inline-block;
+    border: 1px solid black;
+
 }

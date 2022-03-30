@@ -42,7 +42,7 @@ const Users = (props: UsersPropsType) => {
             <div>
                 {props.isFetching ? <Spinner/> : null}
             </div>
-            <Paginator currentPage={props.currentPage} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+            <Paginator currentPage={props.currentPage} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                        onPageChanged={onPageChanged}/>
             {
                 props.users.map((u) => <User followTC={props.followTC} unFollowTC={props.unFollowTC} user={u}/>)

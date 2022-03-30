@@ -20,7 +20,7 @@ const User = (props: UserPropsType) => {
         <div>
                     <span>
                     <NavLink to={'/profile/' + props.user.id}> <img src={props.user.photos.small || userPhoto}
-                                                                    alt="photo" className={s.photo}/></NavLink>
+                                                                    alt="defaultPhoto" className={s.photo}/></NavLink>
                     </span>
             <span>
                     <div>
