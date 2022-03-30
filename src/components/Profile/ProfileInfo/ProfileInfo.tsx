@@ -1,16 +1,20 @@
-import React from "react";
 import s from './ProfileInfo.module.css'
 import {AppStoreType} from "../../../redux/store";
-import {InitStateType} from "../../../redux/profile-reducer";
+import {InitStateType, savePhotoTC} from "../../../redux/profile-reducer";
 import profileImage from "../../../assets/images/noPhoto.jpg"
 import ProfileStatus from "./ProfileStatus";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {ChangeEvent} from "react";
 
-const ProfileInfo = () => {
-
-
+const ProfileInfo = (isOwner:any) => {
+    let dispatch = useDispatch()
     const state = useSelector<AppStoreType, InitStateType>(state => state.profilePage)
 
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement> ) =>{
+        if(e.target?.files?.length){
+            dispatch(savePhotoTC(e.target.files[0]))
+        }
+    }
 
     return (
         <div className={s.profileInfo}>
@@ -19,6 +23,7 @@ const ProfileInfo = () => {
                     <img src={state.profile.photos?.large} alt='profilePhoto'/> :
                     <img src={profileImage} alt='profilePhoto'/>}
             </div>
+            {isOwner.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
 
             <ProfileStatus status = {state.status}/>
             <div className={s.descriptionBlock}>

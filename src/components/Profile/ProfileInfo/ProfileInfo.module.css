@@ -5,6 +5,7 @@
 .profileImg img{
     height: 248px;
     width: 230px;
+    border-radius: 15px;
 }
 
 .descriptionBlock{

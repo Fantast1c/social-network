@@ -23,10 +23,12 @@ const Profile = (props: any) => {
         dispatch(getUserProfileTC(userId))
     }, [props.match.params.userId])
 
+    let isOwner = (!props.match.params.userId)
+
     return (
         <div className={s.container}>
             <div className={s.profile}>
-                <ProfileInfo/>
+                <ProfileInfo isOwner = {isOwner}/>
                 <MyPosts/>
             </div>
         </div>

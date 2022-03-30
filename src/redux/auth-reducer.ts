@@ -1,6 +1,7 @@
 import {authAPI, loginAPI, logoutAPI} from "../api/api";
 
 const SET_USER_DATA = "SET-USER-DATA";
+const SET_IS_AUTH = "SET-IS-AUTH"
 
 export type LoginType = {
     id:null| number
@@ -26,12 +27,17 @@ const authReducer = (state: InitStateType = initialState, action: any): InitStat
                 ...state,
                 ...action.data,
             }
+        case SET_IS_AUTH:
+            return {
+                ...state, isAuth: state.isAuth=true
+            }
         default:
             return state;
     }
 }
 
 export const setUserDataAC = (data:InitStateType) =>  ({type: SET_USER_DATA, data, isAuth:false})
+export const setIsAuth = () =>({type:SET_IS_AUTH})
 
 export const authTC = () => async (dispatch:any) =>{
     let response = await authAPI()
