@@ -34,6 +34,7 @@ const Profile = (props: any) => {
     );
 }
 
-export let  ProfileWithRouter = withRouter(Profile)
+let  ProfileWithRouter = withRouter(Profile)
+export default ProfileWithRouter
 
 

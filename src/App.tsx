@@ -2,19 +2,19 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/Login/Login";
-import {DialogsWithRouter} from "./components/Dialogs/Dialogs";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeAppTC, initType} from "./redux/app-reducer";
 import {AppStoreType} from "./redux/store";
 import {Spinner} from "./assets/spinner/Spinner";
 import {InitStateType} from "./redux/auth-reducer";
-import {ProfileWithRouter} from "./components/Profile/Profile";
+const DialogsWithRouter = React.lazy(() => import('./components/Dialogs/Dialogs'));
+const ProfileWithRouter = React.lazy(() => import('./components/Profile/Profile'));
 
 const App = () => {
     const dispatch = useDispatch()
@@ -38,6 +38,7 @@ const App = () => {
                     <div className="app-main">
                         <Navbar/>
                         <div className="app-wrapper-content">
+                            <React.Suspense fallback={<Spinner/>}>
                             <Switch>
                                 <Route exact path="/profile/:userId?" render={() => <ProfileWithRouter  />}/>
                                 <Route path="/users" render={() => <UsersContainer/>}/>
@@ -47,6 +48,7 @@ const App = () => {
                                 <Route path="/settings" render={() => <Settings/>}/>
                                 <Route path="/login" render={() => <Login/>}/>
                             </Switch>
+                            </React.Suspense>
                         </div>
                     </div>
                 </div>

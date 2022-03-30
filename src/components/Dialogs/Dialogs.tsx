@@ -49,4 +49,6 @@ const AddMessageForm = () =>{
         <input type="submit" className={s.button}/>
     </form>)}
 
-export let DialogsWithRouter = WithAuthRedirect(Dialogs)
+    let DialogsWithRouter = WithAuthRedirect(Dialogs)
+
+export default DialogsWithRouter
