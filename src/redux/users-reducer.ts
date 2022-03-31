@@ -15,7 +15,7 @@ let initialState: UsersPropsType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
 }
 
 export type InitStateType = typeof initialState

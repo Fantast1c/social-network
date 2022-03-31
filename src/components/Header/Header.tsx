@@ -14,7 +14,7 @@ const Header = () => {
         <header className={s.header}>
             <div><img src={logo} alt="Logo"/></div>
 
-            <button className={s.button} onClick={()=>{ dispatch(setIsAuth())}}>isAuth=true (clickMe)</button>
+            <button  className={s.button} onClick={ ()=>{ dispatch(setIsAuth())}}>isAuth=true (clickMe)</button>
 
             <div>
                 {state.isAuth?

@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {Spinner} from "../../assets/spinner/Spinner";
 import Paginator from "../../assets/paginator/Paginator";
 import User from "./User";
+import FindUsersForm from "./FindUsersForm";
 
 export type UsersPropsType = {
     users: Array<UserType>
@@ -44,9 +45,8 @@ const Users = (props: UsersPropsType) => {
             </div>
             <Paginator currentPage={props.currentPage} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                        onPageChanged={onPageChanged}/>
-            {
-                props.users.map((u) => <User followTC={props.followTC} unFollowTC={props.unFollowTC} user={u}/>)
-            }
+                       <FindUsersForm/>
+
         </div>
     )
 }
