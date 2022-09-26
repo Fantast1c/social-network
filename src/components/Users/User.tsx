@@ -17,7 +17,11 @@ const User = (props: UserPropsType) => {
     let state = useSelector<AppStoreType, InitStateType>(state => state.usersPage)
 
     return (
-        <div>
+        <div className={s.user}>
+                <div>
+                    <h5>{props.user.name}</h5>
+                    <div>{props.user.status}</div>
+                </div>
                     <span>
                     <NavLink to={'/profile/' + props.user.id}> <img src={props.user.photos.small || userPhoto}
                                                                     alt="defaultPhoto" className={s.photo}/></NavLink>
@@ -25,19 +29,16 @@ const User = (props: UserPropsType) => {
             <span>
                     <div>
                 {props.user.followed ?
-                    <button disabled={state.followingInProgress.some(id => id === props.user.id)}
+                    <button className={s.button} disabled={state.followingInProgress.some(id => id === props.user.id)}
                             onClick={() => {
                                 props.unFollowTC(props.user.id)
                             }}>unfollow</button>
                     :
-                    <button disabled={state.followingInProgress.some(id => id === props.user.id)}
+                    <button className={s.button} disabled={state.followingInProgress.some(id => id === props.user.id)}
                             onClick={() => {
                                 props.followTC(props.user.id)
                             }}>follow</button>}
                     </div>
-                    </span>
-            <span>
-                    <div>{props.user.name}</div><div>{props.user.status}</div>
                     </span>
         </div>
     )

@@ -1,6 +1,7 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {loginTC} from "../../redux/auth-reducer";
 import {useDispatch} from "react-redux";
+import style from "./Login.module.css"
 
 type Inputs = {
     email: string
@@ -20,9 +21,10 @@ const LoginForm = () => {
     const onSubmit: SubmitHandler<Inputs> = data => dispatch(loginTC(data.email, data.password, data.remember));
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <input placeholder={"Login"}
+        <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={style.label}>
+                <input className={style.input}
+                placeholder={"Login"}
                        {...register("email",
                            {required: "Поле обязательно к заполнению", pattern: emailPattern})}/>
             </div>
@@ -30,16 +32,17 @@ const LoginForm = () => {
                 {errors.email && errors.email.message}
             </div>
             <div>
-                <input type="password" placeholder={"Password"}
+                <input className={style.input}
+                 type="password" placeholder={"Password"}
                        {...register("password",
                            {required: "Поле обязательно к заполнению"})}/>
             </div>
             <div>{errors.password && errors.password.message}</div>
             <div>
-                <input type={"checkbox"} {...register("remember")}/> remember me
+                <input type={"checkbox"} {...register("remember")} /> remember me
             </div>
             <div>
-                <input type="submit"/>
+                <input className={style.button} type="submit"/>
             </div>
         </form>
     );
